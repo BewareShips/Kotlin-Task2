@@ -1,32 +1,35 @@
 package com.example.inputanddisplay
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
 
-    var clickCountMap = mutableMapOf<String,Int>()
+    private var clickCountMap = mutableMapOf<String,Int>()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val clickCountDisplayView = findViewById<TextView>(R.id.clickTextView)
-        val clickCountBtn = findViewById<Button>(R.id.clickedCountBtn)
-        val inputName = findViewById<TextInputLayout>(R.id.inputName)
+        val clickCountBtn = findViewById<TextView>(R.id.clickedCountBtn)
+        val userNameTextInputView = findViewById<TextInputLayout>(R.id.filledTextField)
+
+
 
         clickCountBtn.setOnClickListener{
-            val userName = inputName.editText?.text?.toString()
-            val makedUserName = if(userName.isNullOrEmpty()){"Somebody"}  else userName
+            val userName = userNameTextInputView.editText?.text?.toString()
+            val madeUserName = if(userName.isNullOrEmpty()){"Somebody"}  else userName
 
-            val oldClickCount = clickCountMap[makedUserName] ?: 0
+            val oldClickCount = clickCountMap[madeUserName] ?: 0
             val newClickCount = oldClickCount + 1
 
-            clickCountMap[makedUserName] = newClickCount
-            clickCountDisplayView.text = "$makedUserName Clicked $newClickCount  times"
+            clickCountMap[madeUserName] = newClickCount
+            clickCountDisplayView.text = "$madeUserName Clicked $newClickCount  times"
         }
     }
 }
